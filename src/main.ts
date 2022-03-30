@@ -34,7 +34,7 @@ async function run(): Promise<void> {
 			INPUT_FORMAT_OUTPUT = core.getInput("format_output"),
 			INPUT_PRETTIER_OPTS = core.getInput("prettier_opts"),
 			INPUT_PRETTIER_IGNORE = getInputAsArray("prettier_ignore"),
-			INPUT_DEPLOYMENT_FLAG = core.getInput("deployment_flag", {}),
+			INPUT_DEPLOYMENT_FLAG = core.getInput("deployment_flag"),
 			paths = ["vendor/bundle"];
 		if (INPUT_RESTORE_KEYS.length > 0) restoreKeys = INPUT_RESTORE_KEYS;
 		else restoreKeys = ["Linux-gems-", "bundle-use-ruby-Linux-gems-"];
