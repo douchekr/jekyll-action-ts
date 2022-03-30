@@ -152,7 +152,7 @@ async function run(): Promise<void> {
 		}
 
 		await measure({
-			name: "bundle install",
+			name: "bundle install dep false",
 			block: async () => {
 				await exec.exec("bundle config set deployment false");
 				await exec.exec(
