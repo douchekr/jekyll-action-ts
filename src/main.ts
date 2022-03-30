@@ -33,6 +33,7 @@ async function run(): Promise<void> {
 			INPUT_FORMAT_OUTPUT = core.getInput("format_output"),
 			INPUT_PRETTIER_OPTS = core.getInput("prettier_opts"),
 			INPUT_PRETTIER_IGNORE = getInputAsArray("prettier_ignore"),
+		      	INPUT_DEPLOYMENT_FLAG = core.getInput("deployment_flag", false),
 			paths = ["vendor/bundle"];
 		if (INPUT_RESTORE_KEYS.length > 0) restoreKeys = INPUT_RESTORE_KEYS;
 		else restoreKeys = ["Linux-gems-", "bundle-use-ruby-Linux-gems-"];
@@ -152,9 +153,12 @@ async function run(): Promise<void> {
 		}
 
 		await measure({
-			name: "bundle install dep false",
+			name: "bundle install",
 			block: async () => {
-				await exec.exec("bundle config set deployment false");
+				deploymentFlag = INPUT_DEPLOYMENT_FLAG;
+				await exec.exec(
+					`bundle config set deployment ${deploymentFlag}`
+				);
 				await exec.exec(
 					`bundle config path ${process.env.GITHUB_WORKSPACE}/vendor/bundle`
 				);
