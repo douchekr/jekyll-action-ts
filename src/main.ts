@@ -22,6 +22,7 @@ async function run(): Promise<void> {
 			exactKeyMatch: boolean,
 			installFailure = false,
 			restoreKeys: string[],
+			deploymentFlag = true,
 			key: string;
 		const INPUT_JEKYLL_SRC = core.getInput("jekyll_src", {}),
 			SRC = core.getInput("src", {}),
@@ -33,7 +34,7 @@ async function run(): Promise<void> {
 			INPUT_FORMAT_OUTPUT = core.getInput("format_output"),
 			INPUT_PRETTIER_OPTS = core.getInput("prettier_opts"),
 			INPUT_PRETTIER_IGNORE = getInputAsArray("prettier_ignore"),
-		      	INPUT_DEPLOYMENT_FLAG = core.getInput("deployment_flag", false),
+			INPUT_DEPLOYMENT_FLAG = core.getInput("deployment_flag", {}),
 			paths = ["vendor/bundle"];
 		if (INPUT_RESTORE_KEYS.length > 0) restoreKeys = INPUT_RESTORE_KEYS;
 		else restoreKeys = ["Linux-gems-", "bundle-use-ruby-Linux-gems-"];
@@ -155,11 +156,9 @@ async function run(): Promise<void> {
 		await measure({
 			name: "bundle install",
 			block: async () => {
-				deploymentFlag = INPUT_DEPLOYMENT_FLAG;
-				core.info(`deployment flag is ${deploymentFlag}`)
-				await exec.exec(
-					`bundle config set deployment ${deploymentFlag}`
-				);
+				if (!INPUT_DEPLOYMENT_FLAG) deploymentFlag = false;
+				core.info(`deployment flag is ${deploymentFlag}`);
+				await exec.exec(`bundle config set deployment ${deploymentFlag}`);
 				await exec.exec(
 					`bundle config path ${process.env.GITHUB_WORKSPACE}/vendor/bundle`
 				);
