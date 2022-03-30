@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/limjh16/jekyll-action-ts.git"
+    "url": "git+https://github.com/douchekr/jekyll-action-ts.git"
   },
   "keywords": [
     "actions",
