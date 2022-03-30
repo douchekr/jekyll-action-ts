@@ -156,8 +156,7 @@ async function run(): Promise<void> {
 		await measure({
 			name: "bundle install",
 			block: async () => {
-				core.info(INPUT_DEPLOYMENT_FLAG);
-				if (!INPUT_DEPLOYMENT_FLAG) deploymentFlag = false;
+				if (INPUT_DEPLOYMENT_FLAG == "false") deploymentFlag = false;
 				core.info(`deployment flag is ${deploymentFlag}`);
 				await exec.exec(`bundle config set deployment ${deploymentFlag}`);
 				await exec.exec(
