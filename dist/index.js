@@ -3529,6 +3529,7 @@ function run() {
             yield common_1.measure({
                 name: "bundle install",
                 block: () => __awaiter(this, void 0, void 0, function* () {
+                    core.info(INPUT_DEPLOYMENT_FLAG);
                     if (!INPUT_DEPLOYMENT_FLAG)
                         deploymentFlag = false;
                     core.info(`deployment flag is ${deploymentFlag}`);
