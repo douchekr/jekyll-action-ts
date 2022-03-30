@@ -156,6 +156,7 @@ async function run(): Promise<void> {
 			name: "bundle install",
 			block: async () => {
 				deploymentFlag = INPUT_DEPLOYMENT_FLAG;
+				core.info(`deployment flag is ${deploymentFlag}`)
 				await exec.exec(
 					`bundle config set deployment ${deploymentFlag}`
 				);
